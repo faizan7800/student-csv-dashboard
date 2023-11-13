@@ -7,17 +7,15 @@ const upload = multer({ dest: 'uploads/' });
 const cors = require('cors')
 
 
-
-// Initialize Firebase with your service account credentials
-let serviceAccount = require("./student-dash-3841e-firebase-adminsdk-p1oir-d0f95191bb.json"); // Replace with the path to your service account file
+let serviceAccount = require("./student-dash-3841e-firebase-adminsdk-p1oir-d0f95191bb.json"); 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://student-dash-3841e-default-rtdb.firebaseio.com/', // Replace with your Firebase Database URL
+  databaseURL: 'https://student-dash-3841e-default-rtdb.firebaseio.com/', 
 });
 
 const app = express();
 app.use(cors())
-const port = 8080; // Replace with your desired port
+const port = 8080; 
 
 app.post('/upload', upload.single('csv'), async (req, res) => {
   try {
@@ -49,8 +47,6 @@ async function parseCSV(filePath) {
       .pipe(csv())
       .on('data', (row) => {
         const firebaseData = {
-            // Modify the keys to match your desired Firebase structure
-            // For example, if your CSV has columns: Name, Age, Email, and Phone
             name: row['Name'],
             age: row['Age'],
             email: row['Email'],
